@@ -23,7 +23,7 @@ parser.add_argument('--train_path', type=str,   default="/content/data/voxceleb1
 parser.add_argument('--eval_list',  type=str,   default="/content/data/voxceleb1/test_filelist.txt",              help='The path of the evaluation list, veri_test2.txt comes from https://www.robots.ox.ac.uk/~vgg/data/voxceleb/meta/veri_test2.txt')
 parser.add_argument('--eval_path',  type=str,   default="/content/data/voxceleb1/test/wav",                    help='The path of the evaluation data, eg:"/data08/VoxCeleb1/test/wav" in my case')
 parser.add_argument('--musan_path', type=str,   default="/conent/data/musan",                    help='The path to the MUSAN set, eg:"/data08/Others/musan_split" in my case')
-parser.add_argument('--rir_path',   type=str,   default="/conent/data/rir_noises/RIRS_NOISES/simulated_rirs",     help='The path to the RIR set, eg:"/data08/Others/RIRS_NOISES/simulated_rirs" in my case')
+parser.add_argument('--rir_path',   type=str,   default="/conent/data/RIRS_NOISES/simulated_rirs",     help='The path to the RIR set, eg:"/data08/Others/RIRS_NOISES/simulated_rirs" in my case')
 parser.add_argument('--save_path',  type=str,   default="'/content/drive/MyDrive/spk_emb/ecapa/exps/exp1",                                     help='Path to save the score.txt and models')
 parser.add_argument('--initial_model',  type=str,   default="",                                          help='Path of the initial_model')
 
