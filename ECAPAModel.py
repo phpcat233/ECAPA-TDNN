@@ -2,11 +2,12 @@
 This part is used to train the speaker model and evaluate the performances
 '''
 
-import torch, sys, os, tqdm, numpy, soundfile, time, pickle
+import torch, sys, os, numpy, soundfile, time, pickle
 import torch.nn as nn
 from tools import *
 from loss import AAMsoftmax
 from model import ECAPA_TDNN
+from tqdm import tqdm
 
 class ECAPAModel(nn.Module):
 	def __init__(self, lr, lr_decay, C , n_class, m, s, test_step, **kwargs):
