@@ -10,7 +10,7 @@ from ECAPAModel import ECAPAModel
 parser = argparse.ArgumentParser(description = "ECAPA_trainer")
 ## Training Settings
 parser.add_argument('--num_frames', type=int,   default=200,     help='Duration of the input segments, eg: 200 for 2 second')
-parser.add_argument('--max_epoch',  type=int,   default=80,      help='Maximum number of epochs')
+parser.add_argument('--max_epoch',  type=int,   default=10,      help='Maximum number of epochs')
 parser.add_argument('--batch_size', type=int,   default=400,     help='Batch size')
 parser.add_argument('--n_cpu',      type=int,   default=4,       help='Number of loader threads')
 parser.add_argument('--test_step',  type=int,   default=1,       help='Test and save every [test_step] epochs')
@@ -82,7 +82,7 @@ score_file = open(args.score_save_path, "a+")
 
 while(1):
 	## Training for one epoch
-	loss, lr, acc = s.train_network(epoch = epoch, loader = trainLoader)
+	loss, lr, acc = s.train_network(epoch = epoch, num_epochs = args.max_epoch, loader = trainLoader)
 
 	## Evaluation every [test_step] epochs
 	if epoch % args.test_step == 0:
