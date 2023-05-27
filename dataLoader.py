@@ -14,13 +14,11 @@ class train_loader(object):
 		self.noisesnr = {'noise':[0,15],'speech':[13,20],'music':[5,15]}
 		self.numnoise = {'noise':[1,1], 'speech':[3,8], 'music':[1,1]}
 		self.noiselist = {}
-		augment_files   = glob.glob(os.path.join(musan_path,'*/*/*/*.wav'))
+		augment_files   = glob.glob(os.path.join(musan_path,'*/*/*.wav'))
 		for file in augment_files:
-			print(file.split('/'))
 			if file.split('/')[-3] not in self.noiselist:
 				self.noiselist[file.split('/')[-3]] = []
 			self.noiselist[file.split('/')[-3]].append(file)
-		print(self.noiselist.keys())
 		self.rir_files  = glob.glob(os.path.join(rir_path,'*/*/*.wav'))
 		# Load data & labels
 		self.data_list  = []
