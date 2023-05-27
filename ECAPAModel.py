@@ -20,13 +20,14 @@ class ECAPAModel(nn.Module):
 		self.scheduler       = torch.optim.lr_scheduler.StepLR(self.optim, step_size = test_step, gamma=lr_decay)
 		print(time.strftime("%m-%d %H:%M:%S") + " Model para number = %.2f"%(sum(param.numel() for param in self.speaker_encoder.parameters()) / 1024 / 1024))
 
-	def train_network(self, epoch, loader):
+	def train_network(self, epoch, num_epochs, loader):
 		self.train()
 		## Update the learning rate based on the current epcoh
 		self.scheduler.step(epoch - 1)
 		index, top1, loss = 0, 0, 0
 		lr = self.optim.param_groups[0]['lr']
-		for num, (data, labels) in enumerate(loader, start = 1):
+		loop = tqdm(enumerate(loader, start = 1), total=len(loader), leave=True)
+		for num, (data, labels) in loop:
 			self.zero_grad()
 			labels            = torch.LongTensor(labels).cuda()
 			speaker_embedding = self.speaker_encoder.forward(data.cuda(), aug = True)
@@ -40,6 +41,8 @@ class ECAPAModel(nn.Module):
 			" [%2d] Lr: %5f, Training: %.2f%%, "    %(epoch, lr, 100 * (num / loader.__len__())) + \
 			" Loss: %.5f, ACC: %2.2f%% \r"        %(loss/(num), top1/index*len(labels)))
 			sys.stderr.flush()
+			loop.set_description(f'Epoch [{epoch}/{num_epochs}]')
+			loop.set_postfix(loss=loss/num, acc=top1/index*len(labels))
 		sys.stdout.write("\n")
 		return loss/num, lr, top1/index*len(labels)
 
