@@ -43,7 +43,7 @@ class ECAPAModel(nn.Module):
 			" Loss: %.5f, ACC: %2.2f%% \r"        %(loss/(num), top1/index*len(labels)))
 			sys.stderr.flush()
 			loop.set_description(f'Epoch [{epoch}/{num_epochs}]')
-			loop.set_postfix(loss=loss/num, acc=top1/index*len(labels))
+			loop.set_postfix(loss=loss/num)
 		sys.stdout.write("\n")
 		return loss/num, lr, top1/index*len(labels)
 
@@ -58,7 +58,7 @@ class ECAPAModel(nn.Module):
 		setfiles = list(set(files))
 		setfiles.sort()
 
-		for idx, file in tqdm.tqdm(enumerate(setfiles), total = len(setfiles)):
+		for idx, file in tqdm(enumerate(setfiles), total = len(setfiles)):
 			audio, _  = soundfile.read(os.path.join(eval_path, file))
 			# Full utterance
 			data_1 = torch.FloatTensor(numpy.stack([audio],axis=0)).cuda()
