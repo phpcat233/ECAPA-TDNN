@@ -47,7 +47,7 @@ trainloader = train_loader(**vars(args))
 trainLoader = torch.utils.data.DataLoader(trainloader, batch_size = args.batch_size, shuffle = True, num_workers = args.n_cpu, drop_last = True)
 
 ## Search for the exist models
-modelfiles = glob.glob('%s/model_0*.model'%args.model_save_path)
+modelfiles = glob.glob(os.path.join(args.save_path, "**", "model_0*.model"), recursive=True)
 modelfiles.sort()
 
 ## Only do evaluation, the initial_model is necessary
